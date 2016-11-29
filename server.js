@@ -6,10 +6,15 @@ var port = 3000 || process.env.PORT;
 server.listen(port,function(){
     console.log("server running at "+port);
 });
-
+var nosUser = 0;
 io.on('connection',function (socket) {
-    console.log("user connected");
-    socket.on('disconnect',function () {
-        console.log("disconnected");
-    });
+  nosUser++;
+  console.log("user connected : "+nosUser);
+  socket.on('user',function(aUser){
+    console.log("username : " + aUser.name);
+  })
+  socket.on('disconnect',function () {
+    nosUser--;
+    console.log("disconnected.user connected :  "+nosUser);
+  });
 });

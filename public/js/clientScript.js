@@ -17,7 +17,7 @@ function updateScrollbar() {
 }
 
 function setDate(){
-  d = new Date()
+  d = new Date();
   if (m != d.getMinutes()) {
     m = d.getMinutes();
     $('<div class="timestamp">' + d.getHours() + ':' + m + '</div>').appendTo($('.message:last'));

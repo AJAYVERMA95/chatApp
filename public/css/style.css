@@ -82,6 +82,20 @@ Login
   text-align: left;
   padding: 10px 10px 10px 50px;
 }
+.login-title .avatar {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  left: 9px;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.24);
+}
+
 .login-box {
   -webkit-box-flex: 0;
   -webkit-flex: 0 1 40px;
@@ -102,7 +116,7 @@ Login
   height: 17px;
   margin: 0;
   padding-right: 20px;
-  width: 200px;
+  width: 260px;
 }
 .login-box textarea:focus:-webkit-placeholder {
   color: transparent;
@@ -128,7 +142,116 @@ Login
   background: #1D7745;
 }
 /*--------------------
-Chat
+All Chats
+--------------------*/
+.all-chats {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 300px;
+  height: 80vh;
+  max-height: 500px;
+  z-index: 2;
+  overflow: hidden;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.all-chats-title {
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 45px;
+      -ms-flex: 0 1 45px;
+          flex: 0 1 45px;
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 10px 10px 10px 50px;
+}
+.all-chats-title .avatar {
+  position: absolute;
+  z-index: 1;
+  top: 8px;
+  left: 9px;
+  border-radius: 30px;
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  border: 2px solid rgba(255, 255, 255, 0.24);
+}
+.all-chats-title .avatar img {
+  width: 100%;
+  height: auto;
+}
+.people {
+  margin-left: -1px;
+  border-right: 1px solid #e6e6e6;
+  border-left: 1px solid #e6e6e6;
+  width: -moz-calc(100% + 2px);
+  width: -webkit-calc(100% + 2px);
+  width: -o-calc(100% + 2px);
+  width: calc(100% + 2px);
+}
+.people .person {
+  position: relative;
+  width: 100%;
+  padding: 12px 10% 16px;
+  cursor: pointer;
+  /*background-color: #fff;*/
+}
+.people .person:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: block;
+  width: 80%;
+  height: 1px;
+  content: '';
+  /*background-color: #e6e6e6;*/
+  -moz-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  transform: translate(-50%, 0);
+}
+.people .person img {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.people .person .name {
+  font-size: 14px;
+  line-height: 22px;
+  /*color: #1a1a1a;*/
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 600;
+}
+
+
+/*--------------------
+A-Chat
 --------------------*/
 .chat {
   position: absolute;
