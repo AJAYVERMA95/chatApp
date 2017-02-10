@@ -171,7 +171,6 @@ canvas {
 #hangout.collapsed {
   height: 55px;
   box-shadow: none;
-}
   opacity: 0;
   height: 0;
 }
@@ -252,6 +251,30 @@ canvas {
 #content.chat {
   background-color: #e5e5e5;
 }
+
+#login-modal.card{
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  background-color: white;
+  position: absolute;
+  transition: width 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+#login-modal.dialog {
+  width: 350px;
+  height: 200px;
+  padding: 20px;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  animation: anim-dialog 0.344s 1 cubic-bezier(0.84, 0.64, 0.03, 0.765);
+  animation-fill-mode: alternate;
+  display: block;
+  z-index: 80;
+}
+
 .card {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   background-color: white;
@@ -270,7 +293,7 @@ canvas {
   right: 0;
   animation: anim-dialog 0.344s 1 cubic-bezier(0.84, 0.64, 0.03, 0.765);
   animation-fill-mode: alternate;
-  /*display: none;*/
+  display: none;
   z-index: 80;
 }
 .card.dialog h3 {

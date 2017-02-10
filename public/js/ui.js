@@ -1,9 +1,5 @@
 //
 $(window).load(function () {
-//   $('#login-modal').css("display","block");
-//   $('#login-modal').fadeIn();
-  $('.overlay').addClass('add');
-  // console.log(localStorage);
 });
 
 

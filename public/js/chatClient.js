@@ -1,6 +1,9 @@
 var socket = io();
 
-$('.name-submit').click(function () {
-  var user = $('.name-input').val();
-  socket.emit('user',{name:user});
+$('#login-modal .btn.save').click(function(){
+  var newUser = $('input').val();
+  console.log(newUser);
+  socket.emit('login',{name:newUser});
+  $('#hangout[style*="display"]').toggle();
+  $('#hangout').toggle();
 });
