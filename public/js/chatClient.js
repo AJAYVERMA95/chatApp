@@ -6,4 +6,5 @@ $('#login-modal .btn.save').click(function(){
   socket.emit('login',{name:newUser});
   $('#hangout[style*="display"]').toggle();
   $('#hangout').toggle();
+  $('#head.style-bg h1').html(newUser);
 });

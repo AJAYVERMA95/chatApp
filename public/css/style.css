@@ -99,7 +99,7 @@
 @media (max-width: 1000px) {
   body {
     background: none;
-    background-size: auto;
+    /*background-size: auto;*/
   }
   #hangout {
     width: 100% !important;
