@@ -99,9 +99,9 @@
 @media (max-width: 1000px) {
   body {
     background: none;
-    /*background-size: auto;*/
+    background-size: auto;
   }
-  #hangout {
+  #login-page, #hangout {
     width: 100% !important;
     height: 100% !important;
   }
@@ -154,7 +154,7 @@ canvas {
 *:focus {
   outline: 0;
 }
-#hangout {
+#login-page, #hangout {
   background-color: white;
   height: 635px;
   width: 900px;
@@ -172,7 +172,6 @@ canvas {
   height: 55px;
   box-shadow: none;
   opacity: 0;
-  height: 0;
 }
 #hangout.collapsed .control.floater {
   transform: scale(0) rotate(90deg);

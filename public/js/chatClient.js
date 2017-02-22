@@ -4,7 +4,7 @@ $('#login-modal .btn.save').click(function(){
   var newUser = $('input').val();
   console.log(newUser);
   socket.emit('login',{name:newUser});
-  $('#hangout[style*="display"]').toggle();
+  $('#login-page').toggle();
   $('#hangout').toggle();
-  $('#head.style-bg h1').html(newUser);
+  $('#hangout #head.style-bg h1').html(newUser);
 });
