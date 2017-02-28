@@ -9,12 +9,18 @@ server.listen(port,function(){
 var nosUser = 0,users={};
 io.on('connection',function (socket) {
   nosUser++;
-  console.log("user connected : "+nosUser);
+  // console.log(socket.id);
+  // console.log("user connected : "+nosUser);
   socket.on('login',function(aNewUser){
     console.log("username : " + aNewUser.name);
+    // console.log(this.id);
+    users[this.id] = aNewUser.name;
+    console.log(users);
   })
   socket.on('disconnect',function () {
     nosUser--;
     console.log("disconnected.user connected :  "+nosUser);
+    console.log(this.id);
+    delete users[this.id];
   });
 });
