@@ -12,15 +12,16 @@ io.on('connection',function (socket) {
   // console.log(socket.id);
   // console.log("user connected : "+nosUser);
   socket.on('login',function(aNewUser){
+    users[this.id] = aNewUser.name;
     console.log("username : " + aNewUser.name);
     // console.log(this.id);
-    users[this.id] = aNewUser.name;
+    socket.emit('allOnlineUsers',users);
     console.log(users);
   })
   socket.on('disconnect',function () {
     nosUser--;
-    console.log("disconnected.user connected :  "+nosUser);
-    console.log(this.id);
     delete users[this.id];
+    console.log("disconnected.New ");
+    console.log(users);
   });
 });
