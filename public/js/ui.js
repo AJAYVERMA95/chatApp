@@ -1,4 +1,3 @@
-//
 $(window).load(function () {
 });
 
@@ -193,6 +192,15 @@ $(window).load(function () {
             stylechange(imgData);
         }
     });
+
+    // showing all online users in all chats section
+    function showAllOnlineUsersInChat(userList) {
+      var $location = $('.list-text > ul');
+      $location.empty();
+      $.each(userList,function(userId,userName){
+        $location.append('<li><img src="http://lorempixel.com/100/100/people/1/"><div class="content-container"><span class="name">'+userName +'</span><span class="txt">Online</span></div><span class="time">'+(new Date)+'</span></li>');
+      });
+    }
 
     $('.mdi-send').on('click', function() {
         var $chatmessage = '<p>' + $('.chat-input').val() + '</p>';

@@ -9,13 +9,10 @@ server.listen(port,function(){
 var nosUser = 0,users={};
 io.on('connection',function (socket) {
   nosUser++;
-  // console.log(socket.id);
-  // console.log("user connected : "+nosUser);
   socket.on('login',function(aNewUser){
     users[this.id] = aNewUser.name;
-    console.log("username : " + aNewUser.name);
-    // console.log(this.id);
-    socket.emit('allOnlineUsers',users);
+    console.log("new username : " + aNewUser.name);
+    io.emit('allOnlineUsers',users);
     console.log(users);
   })
   socket.on('disconnect',function () {
@@ -23,5 +20,6 @@ io.on('connection',function (socket) {
     delete users[this.id];
     console.log("disconnected.New ");
     console.log(users);
+    io.emit('allOnlineUsers',users);
   });
 });

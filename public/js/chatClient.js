@@ -2,7 +2,8 @@ var socket = io();
 
 var getAllOnlineUsers = function(){
   socket.on('allOnlineUsers',function (list) {
-    console.log(list);
+    delete list[this.id];
+    showAllOnlineUsersInChat(list);
   });
 }
 
