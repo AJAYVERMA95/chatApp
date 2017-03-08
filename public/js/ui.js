@@ -152,7 +152,6 @@ $('#username').on('blur', function() {
   // Dirty Colorpicker
 $('#colorpick').on('mousedown', function(eventDown) {
   var x = eventDown.offsetX;
-  var y = eventDown.offsetY;
 
   if (eventDown.button === 0) {
     $('.card.menu > .header > img').addClass('excite');
@@ -165,25 +164,6 @@ $('#colorpick').on('mousedown', function(eventDown) {
   }
 });
 
-  // going to paticular chat
-$(document).on('click','.list-text > ul > li',function(){
-  $('ul.chat > li').eq(1).html('<img src="' + $(this).find('img').prop('src') + '"><div class="message"><p>' + $(this).find('.txt').text() + '</p></div>');
-  console.log("cool");
-
-  // timeout just for eyecandy...
-  setTimeout(function() {
-    $('.shown').removeClass('shown');
-    $('.list-chat').addClass('shown');
-    setRoute('.list-chat');
-    $('.chat-input').focus();
-  }, 300);
-});
-
-$('.mdi-send').on('click', function() {
-  var $chatmessage = '<p>' + $('.chat-input').val() + '</p>';
-  $('ul.chat > li > .current').append($chatmessage);
-  $('.chat-input').val('');
-});
 
 $('.chat-input').on('keyup', function(event) {
   event.preventDefault();

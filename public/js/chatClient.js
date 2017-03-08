@@ -1,20 +1,86 @@
 var socket = io();
+var aNewUser={};
+var prevOnlineList=[];
 
 $('#login-modal .btn.save').click(function(){
-  var newUser = $('input').val();
-  console.log(newUser);
-  socket.emit('login',{name:newUser});
+  var nickName = $('input').val();
+  aNewUser['nickName'] = nickName;
+  socket.emit('login',aNewUser);
   $('#login-page').toggle();
   $('#hangout').toggle();
-  $('#hangout #head.style-bg h1').html(newUser);
+  $('#hangout #head.style-bg h1').html(nickName);
 });
 
-socket.on('allOnlineUsers',function (list) {
-  delete list[this.id];
-  // showAllOnlineUsersInChat
+socket.on('allOnlineUsers',function (currentList) {
+  var pos = currentList.indexOf(aNewUser.nickName);
+  currentList.splice(pos,1);
   var $location = $('.list-text > ul');
-  $location.empty();
-  $.each(list,function(userId,userName){
-    $location.append('<li><img src="http://lorempixel.com/100/100/people/1/"><div class="content-container"><span class="name">'+userName +'</span><span class="txt">Online</span></div><span class="time">'+(new Date)+'</span></li>');
-  });
+  updateOnlineList(prevOnlineList,currentList);
+  // $location.empty();
+  prevOnlineList = currentList;
+
+  // $.each(onlineList,function(i,userName){
+  //   $location.append('<li><img src="http://lorempixel.com/100/100/people/1/"><div class="content-container"><span class="name">'+userName +'</span><span class="txt">Online</span></div><span class="time">'+(new Date)+'</span></li>');
+  // });
+  // $location.find('.name').each(function (i,v) {
+  //   console.log("+++++"+$(v).text());
+  // })
 });
+
+// going to paticular chat
+$(document).on('click','.list-text > ul > li',function(){
+var chatTo = $(this).find('.name').text();
+$('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>')
+// $('ul.chat > li').eq(1).html('<img src="' + $(this).find('img').prop('src') + '"><div class="message"><p>' + $(this).find('.txt').text() + '</p></div>');
+console.log("cool");
+
+// timeout just for eyecandy...
+setTimeout(function() {
+  $('.shown').removeClass('shown');
+  $('.list-chat').addClass('shown');
+  setRoute('.list-chat');
+  $('.chat-input').focus();
+}, 300);
+});
+
+
+$(document).on('click','.mdi-send', function() {
+  var message = $('.chat-input').val();
+  var $chatmessage = '<p>' + message + '</p>';
+  var from = aNewUser.nickName;
+  var to = $(this).parent().parent().attr('id');
+  var data = {
+    'from' : from,
+    'to' : to,
+    'message' : message
+  };
+  socket.emit('clientMssgServer',data);
+  $('ul.chat').append('<li><div class="message">'+$chatmessage+'</div></li>');
+  $('.chat-input').val('');
+});
+
+socket.on('serverMssgClient',function(data){
+  console.log(data);
+})
+
+var updateOnlineList = function (prevList,currentList) {
+  if(prevList.length > currentList.length){
+    var leftList = myFilter(currentList,prevList);
+    // removeUser(leftList);
+    console.log("leftList:"+leftList);
+  }
+  if(prevList.length < currentList.length){
+    var joinedList = myFilter(prevList,currentList)
+    console.log("joinedList:"+joinedList);
+  }
+}
+
+var myFilter = function(firstList,secondList){ //firstsmaller
+  return secondList.filter(function (anElement) {
+    var pos = firstList.indexOf(anElement);
+    return pos == -1;
+  });
+}
+
+var removeUser = function (leftList) {
+}
