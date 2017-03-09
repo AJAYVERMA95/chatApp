@@ -14,25 +14,24 @@ $('#login-modal .btn.save').click(function(){
 socket.on('allOnlineUsers',function (currentList) {
   var pos = currentList.indexOf(aNewUser.nickName);
   currentList.splice(pos,1);
-  var $location = $('.list-text > ul');
   updateOnlineList(prevOnlineList,currentList);
-  // $location.empty();
   prevOnlineList = currentList;
-
   // $.each(onlineList,function(i,userName){
   //   $location.append('<li><img src="http://lorempixel.com/100/100/people/1/"><div class="content-container"><span class="name">'+userName +'</span><span class="txt">Online</span></div><span class="time">'+(new Date)+'</span></li>');
   // });
-  // $location.find('.name').each(function (i,v) {
-  //   console.log("+++++"+$(v).text());
-  // })
+  //
 });
 
 // going to paticular chat
 $(document).on('click','.list-text > ul > li',function(){
 var chatTo = $(this).find('.name').text();
+// var existingChats = $('.list-chat').find().each(function(i,v){
+//
+//   console.log($(v).attr('id'));
+// });
 $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>')
 // $('ul.chat > li').eq(1).html('<img src="' + $(this).find('img').prop('src') + '"><div class="message"><p>' + $(this).find('.txt').text() + '</p></div>');
-console.log("cool");
+// console.log("cool");
 
 // timeout just for eyecandy...
 setTimeout(function() {
@@ -66,12 +65,11 @@ socket.on('serverMssgClient',function(data){
 var updateOnlineList = function (prevList,currentList) {
   if(prevList.length > currentList.length){
     var leftList = myFilter(currentList,prevList);
-    // removeUser(leftList);
-    console.log("leftList:"+leftList);
+    removeUser(leftList);
   }
   if(prevList.length < currentList.length){
     var joinedList = myFilter(prevList,currentList)
-    console.log("joinedList:"+joinedList);
+    showRecentlyJoinedUser(joinedList);
   }
 }
 
@@ -83,4 +81,17 @@ var myFilter = function(firstList,secondList){ //firstsmaller
 }
 
 var removeUser = function (leftList) {
+  var $location = $('.list-text > ul');
+  $.each(leftList,function(i,userName){
+    $location.find('.name').each(function (i,v) {
+      if(userName == $(v).text())$(v).parent().parent().remove();
+    });
+  });
+}
+
+var showRecentlyJoinedUser = function (joinedList) {
+  var $location = $('.list-text > ul');
+  $.each(joinedList,function(i,userName){
+    $location.append('<li><img src="http://lorempixel.com/100/100/people/1/"><div class="content-container"><span class="name">'+userName +'</span><span class="txt">Online</span></div><span class="time">'+(new Date)+'</span></li>');
+  });
 }
