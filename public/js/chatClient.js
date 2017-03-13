@@ -23,20 +23,28 @@ socket.on('allOnlineUsers',function (currentList) {
 });
 
 // going to paticular chat
+var openChat = [];
 $(document).on('click','.list-text > ul > li',function(){
 var chatTo = $(this).find('.name').text();
-// var existingChats = $('.list-chat').find().each(function(i,v){
-//
-//   console.log($(v).attr('id'));
+if(openChat.indexOf(chatTo) == -1){
+  $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>');
+  openChat.push(chatTo);
+}
+
+// $(document).find('.list-chat').each(function(i,v){
+//   if(chatTo == $(v).attr('id'))
+//   console.log(chatTo + "already present");
+//   else {
+//     $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>')
+//   }
 // });
-$('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>')
 // $('ul.chat > li').eq(1).html('<img src="' + $(this).find('img').prop('src') + '"><div class="message"><p>' + $(this).find('.txt').text() + '</p></div>');
 // console.log("cool");
 
 // timeout just for eyecandy...
 setTimeout(function() {
   $('.shown').removeClass('shown');
-  $('.list-chat').addClass('shown');
+  $('.list-chat#'+chatTo).addClass('shown');
   setRoute('.list-chat');
   $('.chat-input').focus();
 }, 300);

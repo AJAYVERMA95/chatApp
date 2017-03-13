@@ -104,7 +104,7 @@ $('.mdi-arrow-left').on('click', function() {
   // Set Routes - set floater
 function setRoute(route) {
   GLOBALSTATE.route = route;
-  $(route).addClass('shown');
+  (route !== '.list-chat') && ($(route).addClass('shown'));
 
   if (route !== '.list-account') {
     $('#add-contact-floater').addClass('hidden');
