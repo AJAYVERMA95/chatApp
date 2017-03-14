@@ -52,23 +52,46 @@ setTimeout(function() {
 
 
 $(document).on('click','.mdi-send', function() {
-  var message = $('.chat-input').val();
-  var $chatmessage = '<p>' + message + '</p>';
   var from = aNewUser.nickName;
   var to = $(this).parent().parent().attr('id');
+  var message = $('#'+to+' .chat-input').val();
+  var $chatmessage = '<p>' + message + '</p>';
   var data = {
     'from' : from,
     'to' : to,
     'message' : message
   };
   socket.emit('clientMssgServer',data);
-  $('ul.chat').append('<li><div class="message">'+$chatmessage+'</div></li>');
-  $('.chat-input').val('');
+  $('#'+to+' ul.chat').append('<li><div class="message">'+$chatmessage+'</div></li>');
+  $('#'+to+' .chat-input').val('');
+  $('.chat-input').focus();
 });
 
 socket.on('serverMssgClient',function(data){
   console.log(data);
-})
+  var message = data.message;
+  var from = data.from;
+  var $chatmessage = '<p>' + message + '</p>';
+  var $fromId = '.list-chat#' + from ;
+  if(openChat.indexOf(from) == -1){
+    $('#content').append('<div class="list-chat" id="'+from+'"><ul class="chat"><li><div class="message">'+$chatmessage+'</div></li></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>');
+    openChat.push(from);
+  }
+  else {
+    var ul_chat = $fromId + ' ul.chat'
+    $(ul_chat).append('<li><div class="message">'+$chatmessage+'</div></li>');
+  }
+  console.log("after if "+openChat);
+
+
+  setTimeout(function() {
+    $('.shown').removeClass('shown');
+    $($fromId).addClass('shown');
+    setRoute('.list-chat');
+    $('.chat-input').focus();
+  }, 300);
+
+});
 
 var updateOnlineList = function (prevList,currentList) {
   if(prevList.length > currentList.length){
