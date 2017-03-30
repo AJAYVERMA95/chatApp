@@ -175,7 +175,7 @@ $('#colorpick').on('mousedown', function(eventDown) {
 
 $(document).on('keyup','.chat-input', function(event) {
   event.preventDefault();
-  console.log(event);
+  // console.log(event);
   if (event.which === 13) {
     $('.btn-submit.send').trigger('click');
   }
