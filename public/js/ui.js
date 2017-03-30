@@ -76,7 +76,7 @@ function closeModal() {
   $('.overlay').removeClass('add');
   $('.floater').removeClass('active');
   $('#contact-modal').fadeOut();
-  $('#contact-modal').off('click', '.btn.save');
+  $('#contact-modal').off('click', '.btn-submit.save');
 }
 
 function setModal(mode, $ctx) {
@@ -149,13 +149,13 @@ img.onload = function() {
 }
 
   //todo optimize
-$('#username').on('blur', function() {
-  setName($(this).val());
-  $('.card.menu > .header > img').addClass('excite');
-  setTimeout(function() {
-    $('.card.menu > .header > img').removeClass('excite');
-  }, 800);
-});
+// $('#username').on('blur', function() {
+//   setName($(this).val());
+//   $('.card.menu > .header > img').addClass('excite');
+//   setTimeout(function() {
+//     $('.card.menu > .header > img').removeClass('excite');
+//   }, 800);
+// });
 
   // Dirty Colorpicker
 $('#colorpick').on('mousedown', function(eventDown) {
@@ -173,10 +173,11 @@ $('#colorpick').on('mousedown', function(eventDown) {
 });
 
 
-$('.chat-input').on('keyup', function(event) {
+$(document).on('keyup','.chat-input', function(event) {
   event.preventDefault();
+  console.log(event);
   if (event.which === 13) {
-    $('.mdi-send').trigger('click');
+    $('.btn-submit.send').trigger('click');
   }
 });
 
@@ -191,7 +192,7 @@ $('.list-account > .list').on('click', 'li', function() {
     var $ctx = $('<li class="context"><i class="mdi mdi-pencil"></i><i class="mdi mdi-delete"></i></li>');
     $ctx.on('click', '.mdi-pencil', function() {
       setModal('edit', $TARGET);
-      $('#contact-modal').one('click', '.btn.save', function() {
+      $('#contact-modal').one('click', '.btn-submit.save', function() {
         $TARGET.find('.name').text($('#new-user').val());
         closeModal();
       });
@@ -260,7 +261,7 @@ $('.search-filter').on('keyup', function() {
 });
 
   // killit
-$('#contact-modal').on('click', '.btn.cancel', function() {
+$('#contact-modal').on('click', '.btn-submit.cancel', function() {
   closeModal();
 });
 
@@ -268,12 +269,12 @@ $('#new-user').on('keydown', function(event) {
   switch (event.which) {
     case 13:
       event.preventDefault();
-      $('.btn.save').trigger('click');
+      $('.btn-submit.save').trigger('click');
       break;
 
     case 27:
       event.preventDefault();
-      $('.btn.cancel').trigger('click');
+      $('.btn-submit.cancel').trigger('click');
       break;
   }
 });
@@ -285,7 +286,7 @@ $('#add-contact-floater').on('click', function() {
   } else {
     $(this).addClass('active');
     setModal('add');
-    $('#contact-modal').one('click', '.btn.save', function() {
+    $('#contact-modal').on('click', '.btn-submit.save', function() {
       $('.list-account > .list').prepend('<li><img src="http://lorempixel.com/100/100/people/1/"><span class="name">' + $('#new-user').val() + '</span><i class="mdi mdi-menu-down"></i></li>');
       closeModal();
     });
