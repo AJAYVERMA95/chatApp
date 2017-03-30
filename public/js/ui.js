@@ -58,10 +58,10 @@ if (localStorage.getItem('color') !== null) {
 
   // Helpers
 function setName(name) {
-  ($.trim(name) === '' || $.trim(name) === null) ? name = 'hdsjhshsjbdh' : name = name;
-  $('h1').text(name);
-  localStorage.setItem('username', name);
-  $('#username').val(name).addClass('used');
+  // ($.trim(name) === '' || $.trim(name) === null) ? name = nickName : name = name;
+  // $('h1').text(name);
+  // localStorage.setItem('username', name);
+  $('#profileName').val(name).addClass('used');
   $('.card.menu > .header > h3').text(name);
 }
 
@@ -110,21 +110,29 @@ function setRoute(route) {
     $('#add-contact-floater').addClass('hidden');
   } else {
     $('#add-contact-floater').removeClass('hidden');
+    $('#hangout #head h1').text('Friends');
   }
 
   if (route !== '.list-text') {
     $('#chat-floater').addClass('hidden');
   } else {
     $('#chat-floater').removeClass('hidden');
+    $('#hangout #head h1').text('Chats');
+  }
+
+  if(route === '.list-phone'){
+    $('#hangout #head h1').text('Contact');
   }
 
   if (route === '.list-chat') {
     $('.mdi-menu').hide();
+    $('.nav').hide();
     $('.mdi-arrow-left').show();
     $('#content').addClass('chat');
   } else {
     $('#content').removeClass('chat');
     $('.mdi-menu').show();
+    $('.nav').show();
     $('.mdi-arrow-left').hide();
   }
 }
@@ -205,14 +213,14 @@ $('.nav li').on('click', function() {
   setRoute(route);
 });
 
-$('#head').on('click', '.mdi-fullscreen', function() {
+$('#hangout #head').on('click', '.mdi-fullscreen', function() {
   $(this).removeClass('mdi-fullscreen').addClass('mdi-fullscreen-exit');
   $('#hangout').css({
     width: '900px'
   });
 });
 
-$('#head').on('click', '.mdi-fullscreen-exit', function() {
+$('#hangout #head').on('click', '.mdi-fullscreen-exit', function() {
   $(this).removeClass('mdi-fullscreen-exit').addClass('mdi-fullscreen');
   $('#hangout').css({
     width: '400px'
@@ -220,13 +228,14 @@ $('#head').on('click', '.mdi-fullscreen-exit', function() {
 });
 
   // menuclick
-$('#head .mdi-menu').on('click', function() {
+$('#hangout #head .mdi-menu').on('click', function() {
   $('.menu').toggleClass('open');
   $('.overlay').toggleClass('add');
+  $('#hangout #head h1').toggle('Profile');
 });
 
   // viewtoggle > 1000
-$('#head .mdi-chevron-down').on('click', function() {
+$('#hangout #head .mdi-chevron-down').on('click', function() {
   if ($('#hangout').hasClass('collapsed')) {
     $(this).removeClass('mdi-chevron-up').addClass('mdi-chevron-down');
     $('#hangout').removeClass('collapsed');

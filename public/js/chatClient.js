@@ -2,13 +2,14 @@ var socket = io();
 var aNewUser={};
 var prevOnlineList=[];
 
-$('#login-modal .btn.save').click(function(){
+$('#login-modal .btn-submit.login').click(function(){
   var nickName = $('input').val();
   aNewUser['nickName'] = nickName;
   socket.emit('login',aNewUser);
   $('#login-page').toggle();
   $('#hangout').toggle();
-  $('#hangout #head.style-bg h1').html(nickName);
+  // $('#hangout #head.style-bg h1').html(nickName);
+  setName(nickName);
 });
 
 socket.on('allOnlineUsers',function (currentList) {
@@ -27,7 +28,7 @@ var openChat = [];
 $(document).on('click','.list-text > ul > li',function(){
 var chatTo = $(this).find('.name').text();
 if(openChat.indexOf(chatTo) == -1){
-  $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>');
+  $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <button type="button" class="btn-submit send">send</button></div></div>');
   openChat.push(chatTo);
 }
 
@@ -45,13 +46,14 @@ if(openChat.indexOf(chatTo) == -1){
 setTimeout(function() {
   $('.shown').removeClass('shown');
   $('.list-chat#'+chatTo).addClass('shown');
+  $('#hangout #head h1').text(chatTo);
   setRoute('.list-chat');
   $('.chat-input').focus();
 }, 300);
 });
 
 
-$(document).on('click','.mdi-send', function() {
+$(document).on('click','.btn-submit.send', function() {
   var from = aNewUser.nickName;
   var to = $(this).parent().parent().attr('id');
   var message = $('#'+to+' .chat-input').val();
@@ -62,31 +64,29 @@ $(document).on('click','.mdi-send', function() {
     'message' : message
   };
   socket.emit('clientMssgServer',data);
-  $('#'+to+' ul.chat').append('<li><div class="message">'+$chatmessage+'</div></li>');
+  $('#'+to+' ul.chat').append('<li><div class="message message-sent">'+$chatmessage+'</div></li>');
   $('#'+to+' .chat-input').val('');
   $('.chat-input').focus();
 });
 
 socket.on('serverMssgClient',function(data){
-  console.log(data);
+  // console.log(data);
   var message = data.message;
   var from = data.from;
   var $chatmessage = '<p>' + message + '</p>';
-  var $fromId = '.list-chat#' + from ;
   if(openChat.indexOf(from) == -1){
-    $('#content').append('<div class="list-chat" id="'+from+'"><ul class="chat"><li><div class="message">'+$chatmessage+'</div></li></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <i class="mdi mdi-send"></i></div></div>');
+    $('#content').append('<div class="list-chat" id="'+from+'"><ul class="chat"><li><div class="message">'+$chatmessage+'</div></li></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <button type="button" class="btn-submit send">send</button></div></div>');
     openChat.push(from);
   }
   else {
-    var ul_chat = $fromId + ' ul.chat'
+    var ul_chat = '.list-chat#' + from + ' ul.chat'
     $(ul_chat).append('<li><div class="message">'+$chatmessage+'</div></li>');
   }
-  console.log("after if "+openChat);
-
 
   setTimeout(function() {
     $('.shown').removeClass('shown');
-    $($fromId).addClass('shown');
+    $('.list-chat#' + from).addClass('shown');
+    $('#hangout #head h1').text(from);
     setRoute('.list-chat');
     $('.chat-input').focus();
   }, 300);

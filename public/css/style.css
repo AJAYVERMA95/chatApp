@@ -170,8 +170,6 @@ canvas {
 }
 #hangout.collapsed {
   height: 55px;
-  box-shadow: none;
-  opacity: 0;
 }
 #hangout.collapsed .control.floater {
   transform: scale(0) rotate(90deg);
@@ -236,12 +234,12 @@ canvas {
 }
 #head h1 {
   margin-top: 1px;
-  font-size: 1em;
+  font-size: 1.2em;
   color: white;
-  font-weight: normal;
+  font-weight: bold;
 }
 #content {
-  height: 100%;
+  height: 84%;
   overflow-y: auto;
   background-color: white;
   transition: all 0.444s cubic-bezier(0.7, 0, 0.3, 1);
@@ -384,9 +382,10 @@ canvas {
 .list-chat .meta-bar.chat {
   border-top: 1px solid lightgrey;
   background: white;
-  border-bottom: none;
+  border-bottom: 1px solid lightgrey;
   position: absolute;
-  bottom: 50px;
+  bottom: 0px;
+  height: 50px;
 }
 .list-chat.shown {
   animation: fade-up 0.444s 1 ease-out;
@@ -413,10 +412,12 @@ ul.chat li .message {
   padding: 10px 10px 10px 20px;
   font-size: 0.9em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  min-width: 50%;
+  /*min-width: 50%;*/
   position: relative;
   background: white;
   border-radius: 5px;
+  max-width: 100%;
+  word-wrap: break-word;
 }
 ul.chat li .message:after {
   content: '';
@@ -430,13 +431,17 @@ ul.chat li .message:after {
   left: -8px;
   top: 3px;
 }
-ul.chat li:nth-child(even) {
+/*ul.chat li:nth-child(even) {
   flex-direction: row-reverse;
-}
-ul.chat li:nth-child(even) .message {
+}*/
+ul.chat li .message-sent {
   background-color: #f5f5f5;
+  flex-direction: row-reverse;
+  margin-left: auto;
+  max-width: 100%;
+  word-wrap: break-word;
 }
-ul.chat li:nth-child(even) .message:after {
+ul.chat li .message-sent:after {
   right: -8px;
   left: auto;
   border-width: 8px 0 8px 8px;
@@ -565,6 +570,26 @@ ul.nav li {
 }
 ul.nav li:hover {
   background: #f4f4f4;
+}
+.btn-submit{
+  /*position: absolute;*/
+  z-index: 1;
+  top: 12px;
+  right: 2%;
+  left: 92%;
+  color: #fff;
+  border: none;
+  background: #248A52;
+  font-size: 12px;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 6px 10px;
+  border-radius: 10px;
+  transition: background .2s ease;
+  cursor: pointer;
+}
+.btn-submit:hover {
+  background: #1D7745;
 }
 .mdi-send {
   color: #666666;
