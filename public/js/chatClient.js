@@ -28,7 +28,7 @@ var openChat = [];
 $(document).on('click','.list-text > ul > li',function(){
 var chatTo = $(this).find('.name').text();
 if(openChat.indexOf(chatTo) == -1){
-  $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <button type="button" class="btn-submit send">send</button></div></div>');
+  $('#content').append('<div class="list-chat" id="'+chatTo+'"><ul class="chat"></ul><div class="meta-bar chat"><div class="txt-box-size"><input class="nostyle chat-input" type="text" placeholder="Message..." /></div><div class="btn-box-size"><input type="button" class="btn-submit send" value="send"></div></div></div>');
   openChat.push(chatTo);
 }
 
@@ -75,7 +75,7 @@ socket.on('serverMssgClient',function(data){
   var from = data.from;
   var $chatmessage = '<p>' + message + '</p>';
   if(openChat.indexOf(from) == -1){
-    $('#content').append('<div class="list-chat" id="'+from+'"><ul class="chat"><li><div class="message">'+$chatmessage+'</div></li></ul><div class="meta-bar chat"><input class="nostyle chat-input" type="text" placeholder="Message..." /> <button type="button" class="btn-submit send">send</button></div></div>');
+    $('#content').append('<div class="list-chat" id="'+from+'"><ul class="chat"><li><div class="message">'+$chatmessage+'</div></li></ul><div class="meta-bar chat"><div class="txt-box-size"><input class="nostyle chat-input" type="text" placeholder="Message..." /></div><div class="btn-box-size"><input type="button" class="btn-submit send" value="send"></div></div></div>');
     openChat.push(from);
   }
   else {

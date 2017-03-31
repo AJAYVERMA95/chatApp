@@ -591,14 +591,18 @@ ul.nav li:hover {
 .btn-submit:hover {
   background: #1D7745;
 }
-.mdi-send {
-  color: #666666;
-  font-size: 1.2em;
-  cursor: pointer;
+.btn-box-size {
+  display: inline-table;
+  width: 19%;
+  text-align: center;
+}
+.txt-box-size {
+  display: inline-table;
+  width: 80%;
 }
 input.nostyle {
   border: 0;
-  width: 90%;
+  width: 100%;
   padding: 12px 0 12px 0;
   background: transparent;
 }
