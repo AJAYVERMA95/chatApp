@@ -55,7 +55,7 @@ setTimeout(function() {
 
 $(document).on('click','.btn-submit.send', function() {
   var from = aNewUser.nickName;
-  var to = $(this).parent().parent().attr('id');
+  var to = $(this).closest('.list-chat').attr('id');
   var message = $('#'+to+' .chat-input').val();
   var $chatmessage = '<p>' + message + '</p>';
   var data = {
